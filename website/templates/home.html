@@ -1,0 +1,39 @@
+{% extends "base.html" %} 
+{% block title %}Home{% endblock %} 
+{% block content %}
+<h1 align="center">Notes</h1>
+<ul class="list-group list-group-flush" id="notes">
+  {% for note in user.notes %}
+  <li class="list-group-item">
+    {{ note.data }}
+    <div>
+      <button type="button" class="close" onClick="deleteNote('{{ note.id }}')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <button type="button" class="edit-btn" onClick="editNote('{{ note.id }}', '{{ note.data }}')">
+        Edit
+      </button>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+<form method="POST">
+  <textarea name="note" id="note" class="form-control"></textarea>
+  <input type="hidden" name="note_id" id="note_id"> <!-- Dodane pole dla identyfikatora notatki -->
+  <br />
+  <div align="center">
+    <button type="submit" class="btn btn-primary">Save Note</button> <!-- Zmiana napisu na przycisku -->
+  </div>
+</form>
+
+<script>
+  function deleteNote(noteId) {
+    // Implementacja funkcji usuwania notatki
+  }
+
+  function editNote(noteId, noteData) {
+    document.getElementById('note').value = noteData; // Ustawienie treści notatki w polu tekstowym
+    document.getElementById('note_id').value = noteId; // Ustawienie identyfikatora notatki w ukrytym polu
+  }
+</script>
+{% endblock %}
